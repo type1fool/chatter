@@ -1,3 +1,5 @@
+![Elixir CI](https://github.com/type1fool/chatter/workflows/Elixir%20CI/badge.svg)
+
 # Chatter
 
 To start your Phoenix server:

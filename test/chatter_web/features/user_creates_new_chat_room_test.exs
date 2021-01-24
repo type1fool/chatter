@@ -14,13 +14,6 @@ defmodule ChatterWeb.UserCreatesChatRoomTest do
 
   defp new_chat_link,do: Query.link("New chat room")
 
-  defp sign_in(session, as: user) do
-    session
-    |> fill_in(Query.text_field("Email"), with: user.email)
-    |> fill_in(Query.text_field("Password"), with: user.password)
-    |> click(Query.button("Sign In"))
-  end
-
   defp create_chat_room(session, name: name) do
     session
     |> fill_in(Query.text_field("Name"), with: name)

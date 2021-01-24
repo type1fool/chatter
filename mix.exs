@@ -61,7 +61,22 @@ defmodule Chatter.MixProject do
       setup: ["deps.get", "ecto.setup", "cmd npm install --prefix assets"],
       "ecto.setup": ["ecto.create", "ecto.migrate", "run priv/repo/seeds.exs"],
       "ecto.reset": ["ecto.drop", "ecto.setup"],
-      test: ["ecto.create --quiet", "ecto.migrate --quiet", "test"]
+      test: ["assets.compile", "ecto.create --quiet", "ecto.migrate --quiet", "test"],
+      "assets.watch": &watch_assets/1,
+      "assets.compile": &compile_assets/1
     ]
+  end
+
+  defp watch_assets(_) do
+    Mix.shell().cmd(
+      ".assets/node_modules/webpack/bin/webpack.js --mode development --watch"
+    )
+  end
+
+  defp compile_assets(_) do
+    Mix.shell().cmd(
+      ".assets/node_modules/webpack/bin/webpack.js --mode development",
+      quiet: true
+    )
   end
 end

@@ -3,8 +3,8 @@ defmodule ChatterWeb.UserCanChatTest do
 
   test "user can chat with others successfully", %{metadata: metadata} do
     room = insert(:chat_room)
-    user1 = build(:user) |> set_password("password") |> insert()
-    user2 = build(:user) |> set_password("password") |> insert()
+    user1 = insert(:user)
+    user2 = insert(:user)
     greeting = "Hi everyone"
     greeting_response = "Hi, welcome to #{room.name}"
 

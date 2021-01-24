@@ -1,6 +1,8 @@
 defmodule ChatterWeb.Router do
   use ChatterWeb, :router
 
+  alias ChatterWeb.Plugs
+
   pipeline :browser do
     plug :accepts, ["html"]
     plug :fetch_session
@@ -14,7 +16,7 @@ defmodule ChatterWeb.Router do
   end
 
   scope "/", ChatterWeb do
-    pipe_through :browser
+    pipe_through [:browser, Plugs.RequireLogin]
 
     resources "/chat_rooms", ChatRoomController, only: [:new, :create, :show]
     get "/", ChatRoomController, :index

@@ -54,30 +54,4 @@ let socket = new Socket("/socket", { params: {} })
 // Finally, connect to the socket:
 socket.connect()
 
-// Now that you are connected, you can join channels with a topic:
-let chatRoomTitle = document.getElementById("title")
-if (chatRoomTitle) {
-  let chatRoomName = chatRoomTitle.dataset.chatRoomName
-  let channel = socket.channel(`chat_room:${chatRoomName}`, {})
-
-  let form = document.getElementById("new-message-form")
-  let messageInput = document.getElementById("message")
-  let messages = document.querySelector("[data-role='messages']")
-
-  form.addEventListener("submit", event => {
-    event.preventDefault()
-    channel.push("new_message", { body: messageInput.value.trim() })
-    event.target.reset()
-  })
-
-  channel.on("new_message", payload => {
-    let messageItem = document.createElement("li")
-    messageItem.dataset.role = "message"
-    messageItem.innerText = payload.body
-    messages.appendChild(messageItem)
-  })
-
-  channel.join()
-}
-
 export default socket

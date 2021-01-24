@@ -16,13 +16,13 @@ if (chatRoomTitle) {
   })
 
   channel.on("new_message", payload => {
-    appendMessage(messagesContainer, payload.body)
+    appendMessage(messagesContainer, payload)
   })
 
-  function appendMessage(container, message) {
+  function appendMessage(container, payload) {
     let messageItem = document.createElement("li")
     messageItem.dataset.role = "message"
-    messageItem.innerText = message
+    messageItem.innerText = `${payload.author}: ${payload.body}`
     container.appendChild(messageItem)
   }
 

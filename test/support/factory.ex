@@ -13,4 +13,11 @@ defmodule Chatter.Factory do
       password: "password1"
     }
   end
+
+  def set_password(user, password) do
+    user
+    |> Ecto.Changeset.change(%{password: password})
+    |> Doorman.Auth.Bcrypt.hash_password()
+    |> Ecto.Changeset.apply_changes()
+  end
 end

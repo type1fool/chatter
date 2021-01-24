@@ -10,7 +10,7 @@ defmodule ChatterWeb.GuestSignsUpTest do
     |> click(Query.link("Create an account"))
     |> fill_in(Query.text_field("Email"), with: attrs[:email])
     |> fill_in(Query.text_field("Password"), with: attrs[:password])
-    |> click(Query.link("Sign Up"))
+    |> click(Query.button("Sign up"))
     |> assert_has(Query.data("role", "room", text: room.name))
   end
 end

@@ -43,7 +43,7 @@ defmodule ChatterWeb.UserCanChatTest do
 
   defp add_message(session, message) do
     session
-    |> fill_in(Query.text_field("New Mesage"), with: message)
+    |> fill_in(Query.text_field("New Message"), with: message)
     |> click(Query.button("Send"))
   end
 

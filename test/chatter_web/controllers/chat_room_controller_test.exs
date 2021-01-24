@@ -8,6 +8,7 @@ defmodule ChatterWeb.ChatRoomControllerTest do
 
       response =
         conn
+        |> sign_in()
         |> post(Routes.chat_room_path(conn, :create), %{"room" => params})
         |> html_response(200)
 

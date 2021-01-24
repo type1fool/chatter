@@ -10,14 +10,21 @@ defmodule ChatterWeb.UserController do
   end
 
   def create(conn, %{"user" => params}) do
-    {:ok, user} =
+    changeset =
       %User{}
       |> User.changeset(params)
       |> Secret.put_session_secret()
-      |> Repo.insert()
 
-    conn
-    |> Session.login(user)
-    |> redirect(to: "/")
+    case Repo.insert(changeset) do
+      {:ok, user} ->
+        conn
+        |> Session.login(user)
+        |> redirect(to: "/")
+
+      {:error, changeset} ->
+        conn
+        |> render("new.html", changeset: changeset)
+    end
+
   end
 end

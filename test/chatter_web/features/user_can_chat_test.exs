@@ -26,11 +26,11 @@ defmodule ChatterWeb.UserCanChatTest do
     |> add_message(greeting)
 
     session2
-    |> assert_has(query_message(greeting))
+    |> assert_has(query_message(greeting, author: user1))
     |> add_message(greeting_response)
 
     session1
-    |> assert_has(query_message(greeting_response))
+    |> assert_has(query_message(greeting_response, author: user2))
   end
 
   defp new_session(metadata) do
@@ -51,7 +51,8 @@ defmodule ChatterWeb.UserCanChatTest do
     |> click(Query.button("Send"))
   end
 
-  defp query_message(message) do
+  defp query_message(text, author: author) do
+    message = "#{author.email}: #{text}"
     Query.data("role", "message", text: message)
   end
 end

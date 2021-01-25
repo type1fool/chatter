@@ -1,6 +1,41 @@
-@import "tailwindcss/base";
-@import "tailwindcss/components";
-@import "tailwindcss/utilities";
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* TYPOGRAPHY */
+
+h1, h2, h3, h4, h5, h6 {
+  @apply font-semibold;
+}
+
+h1 { @apply text-5xl; }
+h2 { @apply text-4xl; }
+h3 { @apply text-3xl; }
+h4 { @apply text-2xl; }
+h5 { @apply text-xl; }
+h6 { @apply text-lg font-bold; }
+
+a {
+  @apply font-bold text-green-700 hover:text-green-900 focus:text-green-900;
+}
+
+/* FORMS */
+
+form {
+  @apply flex flex-col gap-3;
+}
+
+input:not([type="radio"]):not([type="checkbox"]), textarea, select {
+  @apply p-2 bg-green-100 hover:bg-white focus:bg-white transition duration-150 border-b-4 border-transparent hover:border-green-500 focus:border-green-500 focus:outline-none;
+}
+
+label {
+  @apply flex flex-col font-bold lowercase cursor-pointer mb-2;
+}
+
+button {
+  @apply p-2 bg-green-300 text-green-800 font-bold uppercase rounded-sm transition duration-150 hover:bg-green-400 hover:text-green-900;
+}
 
 /* Alerts and form errors */
 .alert {

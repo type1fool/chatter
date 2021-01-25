@@ -1,5 +1,5 @@
 defmodule ChatterWeb.UserCreatesChatRoomTest do
-  use ChatterWeb.FeatureCase, async: true
+  use ChatterWeb.FeatureCase, async: false
 
   test "user creates a new chat room successfully", %{session: session} do
     user = insert(:user)

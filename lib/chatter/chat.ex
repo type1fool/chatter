@@ -1,6 +1,8 @@
 defmodule Chatter.Chat do
   alias Chatter.{Chat, Repo}
 
+  import Ecto.Query
+
   def all_rooms do
     Chat.Room
     |> Repo.all()
@@ -32,5 +34,11 @@ defmodule Chatter.Chat do
     |> Ecto.build_assoc(:messages)
     |> Chat.Room.Message.changeset(params)
     |> Repo.insert()
+  end
+
+  def room_messages(room) do
+    Chat.Room.Message
+    |> where([m], m.chat_room_id == ^room.id)
+    |> Repo.all()
   end
 end

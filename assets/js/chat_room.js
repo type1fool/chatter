@@ -19,10 +19,13 @@ if (chatRoomTitle) {
     appendMessage(messagesContainer, payload)
   })
 
-  function appendMessage(container, payload) {
+  function appendMessage(container, { author, body }) {
     let messageItem = document.createElement("li")
+    messageItem.classList.add("flex", "flex-wrap")
     messageItem.dataset.role = "message"
-    messageItem.innerText = `${payload.author}: ${payload.body}`
+    let authorElement = `<span class="font-bold">${author}</span>`
+    let bodyElement = `<span class="">${body}</span>`
+    messageItem.innerHTML = `${authorElement} : ${bodyElement}`
     container.appendChild(messageItem)
   }
 

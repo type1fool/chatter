@@ -50,4 +50,37 @@ defmodule Chatter.ChatTest do
       assert room == found_room
     end
   end
+
+  describe "find_room_by_name/1" do
+    test "retrieves a room by name" do
+      room = insert(:chat_room)
+
+      found_room = Chat.find_room_by_name(room.name)
+
+      assert room == found_room
+    end
+  end
+
+  describe "new_message/2" do
+    test "inserts message associated to room" do
+      room = insert(:chat_room)
+      params = %{"body" => "Hello world", "author" => "random@example.com"}
+
+      {:ok, message} = Chat.new_message(room, params)
+
+      assert message.chat_room_id == room.id
+      assert message.body == params["body"]
+      assert message.author == params["author"]
+      assert message.id
+    end
+
+    test "returns a changeset if insert fails" do
+      room = insert(:chat_room)
+      params = %{}
+
+      {:error, changeset} = Chat.new_message(room, params)
+
+      assert errors_on(changeset).body
+    end
+  end
 end

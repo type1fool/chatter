@@ -1,10 +1,11 @@
 defmodule ChatterWeb.ChatRoomChannelTest do
-  use ChatterWeb.ChannelCase, async: true
+  use ChatterWeb.ChannelCase, async: false
 
   describe "new_message event" do
     test "broadcasts message to all users" do
       email = "random@example.com"
-      {:ok, _, socket} = join_channel("chat_room:general", as: email)
+      room = insert(:chat_room)
+      {:ok, _, socket} = join_channel("chat_room:#{room.name}", as: email)
       payload = %{"body" => "hello world!"}
 
       push(socket, "new_message", payload)

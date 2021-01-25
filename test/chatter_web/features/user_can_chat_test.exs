@@ -33,6 +33,26 @@ defmodule ChatterWeb.UserCanChatTest do
     |> assert_has(query_message(greeting_response, author: user2))
   end
 
+  test "new user can see previous messages in chat room", %{metadata: metadata} do
+    room = insert(:chat_room)
+    user1 = insert(:user)
+    user2 = insert(:user)
+
+    metadata
+    |> new_session()
+    |> visit(rooms_index())
+    |> sign_in(as: user1)
+    |> join_room(room.name)
+    |> add_message("Welcome future users")
+
+    metadata
+    |> new_session()
+    |> visit(rooms_index())
+    |> sign_in(as: user2)
+    |> join_room(room.name)
+    |> assert_has(query_message("Welcome future users", author: user1))
+  end
+
   defp new_session(metadata) do
     {:ok, session} = Wallaby.start_session(metadata: metadata)
     session

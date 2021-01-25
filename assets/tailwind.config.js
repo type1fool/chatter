@@ -5,8 +5,11 @@ module.exports = {
     '../lib/**/*.eex',
     './js/**/*.js'
   ],
-  darkMode: false, // or 'media' or 'class'
+  darkMode: 'media', // or 'media' or 'class'
   theme: {
+    container: {
+      center: true,
+    },
     extend: {},
   },
   variants: {

@@ -5,7 +5,8 @@ defmodule ChatterWeb.ChatRoomChannel do
 
   def join("chat_room:" <> room_name, _msg, socket) do
     room = Chat.find_room_by_name(room_name)
-    {:ok, assign(socket, :room, room)}
+    messages = Chat.room_messages(room)
+    {:ok, %{messages: messages}, assign(socket, :room, room)}
   end
 
   def handle_in("new_message", payload, socket) do

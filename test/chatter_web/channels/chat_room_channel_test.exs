@@ -1,6 +1,22 @@
 defmodule ChatterWeb.ChatRoomChannelTest do
   use ChatterWeb.ChannelCase, async: false
 
+  describe "join/3" do
+    test "returns a list of existing messages" do
+      email = "random@example.com"
+      room = insert(:chat_room)
+      insert_pair(:chat_room_message, chat_room: room)
+
+      {:ok, reply, _socket} = join_channel("chat_room:#{room.name}", as: email)
+
+      assert [message1, message2] = reply.messages
+      assert Map.has_key?(message1, :author)
+      assert Map.has_key?(message1, :body)
+      assert Map.has_key?(message2, :author)
+      assert Map.has_key?(message2, :body)
+    end
+  end
+
   describe "new_message event" do
     test "broadcasts message to all users" do
       email = "random@example.com"

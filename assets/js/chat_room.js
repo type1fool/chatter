@@ -27,4 +27,9 @@ if (chatRoomTitle) {
   }
 
   channel.join()
+    .receive("ok", resp => {
+      resp.messages.map(message => {
+        appendMessage(messagesContainer, message)
+      })
+    })
 }

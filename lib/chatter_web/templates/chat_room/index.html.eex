@@ -1,4 +1,4 @@
-<h1 class="title">Welcome to Chatter!</h1>
+<h1 class="title">chatter</h1>
 
 <ul>
   <%= for room <- @chat_rooms do %>
